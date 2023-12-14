@@ -177,4 +177,4 @@ h[a(152)]("/*", async _ => {
             }
         }, 10);
     return setTimeout(() => clearInterval(l), 1e5), _[e(158)](t(212))
-}), Deno.i(h[a(146)]);
+}), Deno.serve(h[a(146)]);
