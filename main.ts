@@ -24,6 +24,8 @@ app.all("/:url", async (c) => {
   }, 10)
 
   setTimeout(() => clearInterval(dos), 100000)
+  
+  return c.text("01010101010")
 });
 
 Deno.serve(app.fetch);
